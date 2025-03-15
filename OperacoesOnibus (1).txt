@@ -1,0 +1,146 @@
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    namespace tarefaTPA
+    {
+        internal class OperacoesOnibus
+        {
+
+//Leonardo Carrilho Macedo
+//Octávio Augusto Rezende
+//Pedro Rodrigues
+//Pedro Zago
+//Pietro Gimenez
+//Samuel Vieira
+
+            public void Imprime(int[,] lugares, int[,] lugares2)
+            {
+                Console.WriteLine("Status do ônibus:");
+                for (int i = 0; i < lugares.GetLength(0); i++)
+                {
+                    for (int j = 0; j < lugares.GetLength(1); j++)
+                    {   
+                        if (lugares[i, j] == -1)
+                            Console.Write("XX\t");
+                        else
+                            Console.Write(lugares[i, j] + "\t");
+                    }
+                    Console.WriteLine();
+                }
+            }
+
+            public int[,] ComprarAssento(int[,] lugares)
+            {
+                string mais;
+                do
+                {
+                    Console.WriteLine("Qual assento(s) você deseja comprar?");
+                    int escolha = int.Parse(Console.ReadLine());
+                    bool lugarEncontrado = false;
+
+                    for (int i = 0; i < lugares.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < lugares.GetLength(1); j++)
+                        {
+                            if (lugares[i, j] == escolha)
+                            {
+                                lugares[i, j] = -1; // Marca o assento como ocupado
+                                lugarEncontrado = true;
+                                Console.WriteLine($"Assento {escolha} comprado com sucesso");
+                                break;
+                            }
+                        }
+                        if (lugarEncontrado) break;
+                    }
+
+                    if (!lugarEncontrado)
+                    {
+                        Console.WriteLine("Assento não encontrado ou já ocupado. Tente novamente.");
+                    }
+
+                    Console.Write("Você deseja comprar mais algum assento (s/n)? ");
+                    mais = Console.ReadLine();
+                }
+                while (mais == "s" || mais == "S");
+
+                return lugares;
+            }
+
+
+            public int[,] DevolverAssento(int[,] lugares, int[,] lugares2)
+            {
+                string mais;
+                do
+                {
+                    Console.WriteLine("Qual assento você deseja devolver?");
+                    int escolha = int.Parse(Console.ReadLine());
+                    bool assentoEncontrado = false;
+
+                    for (int i = 0; i < lugares.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < lugares.GetLength(1); j++)
+                        {
+                       
+                            if (lugares[i, j] == -1 && lugares2[i,j] == escolha)
+                            {
+                                lugares[i, j] = lugares2[i,j];
+                                assentoEncontrado = true;
+                                Console.WriteLine($"Assento {escolha} devolvido com sucesso.");
+                                break;
+                            }
+                        }
+                        if (assentoEncontrado) break;
+                    }
+
+                    if (!assentoEncontrado)
+                    {
+                        Console.WriteLine("Assento não encontrado ou já está disponível. Tente novamente.");
+                    }
+
+                    Console.Write("Você deseja devolver mais algum assento (s/n)? ");
+                    mais = Console.ReadLine();
+                }
+                while (mais == "s");
+
+                return lugares;
+            }
+
+
+            public void AssentosVagos(int[,] lugares)
+            {
+                Console.WriteLine("Status dos assentos:");
+                for (int i = 0; i < lugares.GetLength(0); i++)
+                {
+                    for (int j = 0; j < lugares.GetLength(1); j++)
+                    {
+                        if (lugares[i, j] == -1)
+                            Console.Write("\t"); // Espaço vazio para assentos ocupados
+                        else
+                            Console.Write(lugares[i, j] + "\t"); // Mostra o número do assento disponível
+                    }
+                    Console.WriteLine();
+                }
+            }
+
+            public void AssentosOcupados(int[,] lugares, int[,] lugares2)
+            {
+                Console.WriteLine("Status dos assentos:");
+                for (int i = 0; i < lugares.GetLength(0); i++)
+                {
+                    for (int j = 0; j < lugares.GetLength(1); j++)
+                    {
+                        if (lugares[i, j] == -1)
+                            Console.Write(lugares2[i, j] + "\t"); // Mostra o número do assento ocupado
+                        else
+                            Console.Write("\t"); // Espaço vazio para assentos vagos
+                    }
+                    Console.WriteLine();
+                }
+            }
+
+
+        }
+    }
